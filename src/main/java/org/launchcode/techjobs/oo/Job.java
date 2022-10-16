@@ -13,13 +13,13 @@ public class Job {
     private PositionType positionType;
     private CoreCompetency coreCompetency;
 
-   //constructors
+    //constructors
     public Job() {
         id = nextId;
         nextId++;
     }
 
-    public Job(String aName,Employer aEmployer, Location aLocation, PositionType aPostionType, CoreCompetency aCoreCompetency){
+    public Job(String aName, Employer aEmployer, Location aLocation, PositionType aPostionType, CoreCompetency aCoreCompetency) {
         this();
         this.name = aName;
         this.employer = aEmployer;
@@ -28,7 +28,7 @@ public class Job {
         this.coreCompetency = aCoreCompetency;
     }
 
-   //custom methods
+    //custom methods
 
     @Override
     public boolean equals(Object o) { //Consider two Job objects "equal" when their id fields match.
@@ -41,6 +41,36 @@ public class Job {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    @Override
+    public String toString() {
+
+        String convertedString = "\n";
+
+        String[] fields = {name, employer.getValue(), location.getValue(), positionType.getValue(), coreCompetency.getValue()};
+        int nullCount = 0;
+        for(int i = 0; i < fields.length; i++) {
+            if(fields[i] == null || fields[i] == "") {
+                nullCount++;
+                fields[i] = "Data not available";
+            }
+        }
+
+        if(nullCount == fields.length) {
+            return "\nOOPS! This job does not seem to exist.\n";
+        }
+
+        convertedString += "ID: " + id +
+                "\nName: " + fields[0] +
+                "\nEmployer: " + fields[1] +
+                "\nLocation: " + fields[2] +
+                "\nPosition Type: " + fields[3] +
+                "\nCore Competency: " + fields[4];
+
+        convertedString += "\n";
+
+        return convertedString;
     }
 
 
